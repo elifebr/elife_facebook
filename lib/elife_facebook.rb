@@ -22,6 +22,3 @@ module ElifeFacebook
     config.default_fields_for *args
   end
 end
-
-
-loader.eager_load
