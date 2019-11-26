@@ -1,8 +1,6 @@
-class InstagramUser
-  include Node
-  edge :medias, Medias
-
-  set_default_fields %w(
-    id
-  )
+module ElifeFacebook
+  class InstagramUser
+    include Node
+    edge :medias, Medias
+  end
 end

@@ -22,7 +22,7 @@ module ElifeFacebook
 
     def bulk_payload cursor: nil, limit: nil
       query = [
-        "fields=#{edge_klass.default_fields.join(',')}",
+        "fields=#{node_klass.default_fields.join(',')}",
         "limit=#{limit || self.limit(0)}",
       ]
 
@@ -38,14 +38,14 @@ module ElifeFacebook
       }
     end
 
-    def edge_klass
+    def node_klass
       singular_class_name = self.class.name.singularize
       begin
         singular_class_name.constantize
       rescue NameError => e
         raise %{
           As name of your edge is #{self.class.name}, we tried to load #{singular_class_name}
-          automatically, but probably doesn't exists. Provide an edgeclass by overriding #{self.class.name}#edge_klass
+          automatically, but probably doesn't exists. Provide an edgeclass by overriding #{self.class.name}#node_klass
           method or create #{singular_class_name} itself
         }
       end
@@ -116,7 +116,7 @@ module ElifeFacebook
       end
       
       (@data || []).each {|d|
-        yield edge_klass.new(d["id"], json: d, client: client, parent: parent)
+        yield node_klass.new(d["id"], json: d, client: client, parent: parent)
       }
       
       # data.nil é o caso quando essa classe é inicializada diretamente
@@ -125,7 +125,7 @@ module ElifeFacebook
       # em caso de array vazio, é porque o filho não retornou nada
       if @data.nil? || @cursor
         request_in_client.each {|d|
-          yield edge_klass.new(d["id"], json: d, client: client, parent: parent)
+          yield node_klass.new(d["id"], json: d, client: client, parent: parent)
         }
       end
     end

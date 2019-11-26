@@ -233,6 +233,13 @@ module ElifeFacebook
 
     def self.included base
       base.extend ClassMethods
+      base.class_eval do
+        klass_singular = base.name.gsub("ElifeFacebook::", "").underscore
+        default_fields = ElifeFacebook.default_fields_for(klass_singular)
+
+        ElifeFacebook.logger.debug("Automatic default fields for #{klass_singular} => #{default_fields}")
+        set_default_fields default_fields
+      end
     end
   end
 end

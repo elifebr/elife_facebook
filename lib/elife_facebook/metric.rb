@@ -2,8 +2,6 @@ module ElifeFacebook
   class Metric
     attr_reader :period
     include Node
-
-    set_default_fields %w{ data }
     
     alias_method :old_initialize, :initialize
     def initialize *args, **kwargs
