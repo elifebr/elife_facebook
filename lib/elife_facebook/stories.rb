@@ -1,7 +1,9 @@
-class Stories
-  include Edge
+module ElifeFacebook
+  class Stories
+    include Edge
 
-  def relative_url_base
-    :stories
+    def relative_url_base
+      :stories
+    end
   end
 end

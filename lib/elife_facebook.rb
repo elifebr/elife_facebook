@@ -6,5 +6,14 @@ loader.setup # ready!
 
 module ElifeFacebook
   class Error < StandardError; end
-  # Your code goes here...
+
+  def self.config &block
+    @config ||= Config.new
+    @config.instance_eval(&block) if block_given?
+    @config
+  end
+  
+  def self.logger
+    config.logger
+  end
 end

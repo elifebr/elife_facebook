@@ -1,7 +1,9 @@
-class Tags
-  include Edge
+module ElifeFacebook
+  class Tags
+    include Edge
 
-  def relative_url_base
-    "tags"
+    def relative_url_base
+      "tags"
+    end
   end
 end

@@ -1,7 +1,9 @@
-class Replies
-  include Edge
+module ElifeFacebook
+  class Replies
+    include Edge
 
-  def relative_url_base
-    :replies
+    def relative_url_base
+      :replies
+    end
   end
 end

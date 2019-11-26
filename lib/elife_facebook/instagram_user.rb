@@ -1,5 +1,3 @@
-require_relative "medias"
-
 class InstagramUser
   include Node
   edge :medias, Medias

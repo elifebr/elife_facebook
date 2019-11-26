@@ -1,3 +1,5 @@
-class Medias
-  include Edge
+module ElifeFacebook
+  class Medias
+    include Edge
+  end
 end
