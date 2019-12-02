@@ -5,7 +5,7 @@ module ElifeFacebook
     attr_reader :parent, :client, :id, :token_provider
 
     def initialize id, data: nil, cursor: nil, client: nil, token_provider: nil, parent: nil
-      raise "You must pass an client or token_provider" if token_provider.nil? and client.nil?
+      raise "You must pass a client or token_provider" if token_provider.nil? and client.nil?
       @id = id
       @parent = parent
       @data = data
