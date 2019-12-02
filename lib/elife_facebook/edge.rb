@@ -1,19 +1,22 @@
 module ElifeFacebook
   module Edge
+    include GemHelpers
     include Enumerable
-    attr_reader :parent, :client, :id
+    attr_reader :parent, :client, :id, :token_provider
 
-    def initialize id, data: nil, cursor: nil, client: nil, parent: nil
+    def initialize id, data: nil, cursor: nil, client: nil, token_provider: nil, parent: nil
+      raise "You must pass an client or token_provider" if token_provider.nil? and client.nil?
       @id = id
       @parent = parent
       @data = data
       @cursor = cursor
       @client = client
-      client.bulk.add(bulk_payload) if data.nil?
+      @token_provider = token_provider
+      self.client.bulk.add(bulk_payload) if data.nil?
     end
 
     def relative_url_base
-      self.class.name.singularize.underscore
+      final_path(self.class.name).singularize.underscore
     end
 
     def other_query_args
@@ -48,6 +51,12 @@ module ElifeFacebook
           automatically, but probably doesn't exists. Provide an edgeclass by overriding #{self.class.name}#node_klass
           method or create #{singular_class_name} itself
         }
+      end
+    end
+
+    def client
+      @client ||= begin
+        SmartClient.new(token_provider: token_provider)
       end
     end
 
@@ -89,17 +98,17 @@ module ElifeFacebook
       each.peek
     end
 
-    def take_and_move(count)
+    def take_next n
       buffer = []
       begin
-        count.times.each {|t|
+        n.times.each {|t|
           next_item = self.peek
 
           break if block_given? and not yield next_item
           
           buffer << self.next
 
-          if t + 1 == count
+          if t + 1 == n
             break
           end
         }

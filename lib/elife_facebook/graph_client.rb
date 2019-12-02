@@ -117,7 +117,7 @@ module ElifeFacebook
     end
 
     def bulk payload
-      Instameter.config.logger.debug "bulk with #{payload} and #{@token}"
+      ElifeFacebook.logger.debug "bulk with #{payload} and #{@token}"
 
       self.class.post(
         base_url,
