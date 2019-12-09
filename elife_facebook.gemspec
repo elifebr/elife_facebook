@@ -36,7 +36,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency "activesupport", "~> 6.0"
+  # a gem instameter utiliza essa versão, vê algum esquema de utilizar não a versão específica
+  spec.add_dependency "activesupport", "~> 4.2"
   spec.add_dependency "httparty", "~> 0.17"
   spec.add_dependency "logger", "~> 1.4"
   spec.add_dependency "zeitwerk", "~> 2.2"
