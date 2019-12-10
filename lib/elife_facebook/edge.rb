@@ -2,7 +2,7 @@ module ElifeFacebook
   module Edge
     include GemHelpers
     include Enumerable
-    attr_reader :parent, :client, :id, :token_provider
+    attr_reader :parent, :id, :token_provider
 
     def initialize id, data: nil, cursor: nil, client: nil, token_provider: nil, parent: nil
       raise "You must pass a client or token_provider" if token_provider.nil? and client.nil?

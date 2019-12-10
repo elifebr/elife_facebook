@@ -1,14 +1,16 @@
 module ElifeFacebook
   module Node
-    attr_reader :id, :parent, :fields, :client
+    attr_reader :id, :parent, :fields, :token_provider
 
-    def initialize id, client:, json: nil, parent: nil, fetch: true, fields: self.class.default_fields
+    def initialize id, client: nil, token_provider: nil, json: nil, parent: nil, fetch: true, fields: self.class.default_fields
+      raise "You must pass a client or token_provider" if token_provider.nil? and client.nil?
       @id = id
       @json = json
-      @client = client
       @parent = parent
       @fields = fields
-      client.bulk.add(bulk_payload) if fetch && @json.nil?
+      @client = client
+      @token_provider = token_provider
+      self.client.bulk.add(bulk_payload) if fetch && @json.nil?
     end
 
     def method_missing(m, *args, &block)
@@ -29,6 +31,12 @@ module ElifeFacebook
         json[key] = args.first
       else
         (json[field] || json[field.to_sym])
+      end
+    end
+
+    def client
+      @client ||= begin
+        SmartClient.new(token_provider: token_provider)
       end
     end
 
