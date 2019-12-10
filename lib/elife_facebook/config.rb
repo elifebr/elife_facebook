@@ -4,7 +4,8 @@ module ElifeFacebook
       :default_discovery_media_fields, :default_instagram_comment_fields, :default_instagram_media_fields, 
       :default_instagram_owner_fields, :default_instagram_reply_fields, :default_media_fields, :default_metric_fields,
       :default_owner_fields, :default_recent_media_fields, :default_reply_fields, :default_story_fields,
-      :default_tag_fields, :default_hashtag_fields, :default_instagram_user_fields
+      :default_tag_fields, :default_hashtag_fields, :default_instagram_user_fields, :default_discovery_user_fields,
+      :default_mentioned_comment_fields, :default_mentioned_mdedia_fields
 
     def initialize
       @default_ad_fields = %w(id)
@@ -12,6 +13,7 @@ module ElifeFacebook
       @default_comment_fields = %w(text)
       @default_creative_fields = %w(media text)
       @default_discovery_media_fields = %w(caption username)
+      @default_discovery_user_fields = %w(id username)
       @default_hashtag_fields = %w(id)
       @default_instagram_comment_fields = %w(id)
       @default_instagram_media_fields = %w(id)
@@ -19,6 +21,8 @@ module ElifeFacebook
       @default_instagram_reply_fields = %w(id)
       @default_instagram_user_fields = %w(id)
       @default_media_fields = %w(id)
+      @default_mentioned_comment_fields = %w(text)
+      @default_mentioned_mdedia_fields = %w(caption)
       @default_metric_fields = %w(data)
       @default_owner_fields = %w(id)
       @default_recent_media_fields = %w(id)
